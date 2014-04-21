@@ -1,4 +1,5 @@
-sandbox
-=======
+django.krislion
+===============
 
-Sandbox for other efforts. Miscellaneous drafts.
+[KrisLion.com](http://www.krislion.com).
+
