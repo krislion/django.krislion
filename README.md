@@ -1,5 +1,6 @@
 django.krislion
 ===============
 
-[KrisLion.com](http://www.krislion.com).
+[KrisLion.com](http://www.krislion.com)
+
 
