@@ -1,4 +1,6 @@
 from django import http
+import cgi
+import django.core.context_processors
 
 SUBDOMAINS = [
     '12thMan'
@@ -30,7 +32,8 @@ SUBDOMAINS = [
 ] #SUBDOMAINS
 
 
-DEFAULT_PAGE='''
+def home(request):
+    DEFAULT_PAGE='''
 <html>
 <head><title>Kris Lion</title>
 <style type="text/css">
@@ -65,13 +68,12 @@ border-radius: 10px;
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 transition: background 0.5s ease-in-out;}
-.header-linkedin:hover{fill:#bbff11;background-color:#22aff4;}
-.header-facebook{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
+.header-facebook, .header-twitter{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
 border-radius: 10px;
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 transition: background 0.5s ease-in-out;}
-.header-facebook:hover{fill:#bbff11;background-color:#22aff4;}
+.header-facebook:hover, .header-linkedin:hover, .header-twitter:hover{fill:#bbff11;background-color:#22aff4;}
 .author-attribution {font-style:normal;font-size:75%;padding-left:10px;float:right;}
 .content-fun {background-image:url("images/catch-drone-zoom-1920-2.jpg");height:690px;background-repeat:no-repeat;background-position:left top;}
 @media (max-width:1660px) {
@@ -80,9 +82,12 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:1020px) {
  .content-fun {background-image:url("images/catch-drone-zoom-1024.jpg");height:425px;}
 }
-@media (max-width:550px) {
+@media (max-width:620px) {
  .logo-subtitle {display:none;}
  }
+@media (max-width:400px) {
+ .header-twitter {display:none;}
+}
 @media (max-width:340px) {
  .header-facebook {display:none;}
 }
@@ -121,8 +126,9 @@ a:active {color:#44ff11;}
    <!--<span class="cart"><a href="http://linkedin.krislion.com"><img src="images/cart.svg" height="50px" width="50px" /><!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 38.2" enable-background="new 0 0 51 38.2"><path stroke="#fff" stroke-miterlimit="10" d="M48.1 5.3h-7.2l-8 21.7c-.1.3-.3.6-.5.8-.4.5-1.1.8-1.8.8h-21.8c-1.3 0-2.4-1.1-2.4-2.4s1.1-2.4 2.4-2.4h20.2l1.1-2.9h-24.9c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h26.7l1-2.8h-30c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h31.8l2.3-6.4c.3-.9 1.2-1.5 2.2-1.6h9c1.3 0 2.4 1.1 2.4 2.4-.1 1.3-1.2 2.4-2.5 2.4zm-34.6 25.5c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4zm14.7 0c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4z"/></svg></a></span>-->
    <!--<span class="logo-subtitle">"Ship it!"</span>-->
    <!--<span class="author-attribution">-<a href="LINKEDIN.KrisLion.com">W. Brandi</a></span>-->
-   <span class="header-linkedin"><a href="http://linkedin.krislion.com"><img height="50px" width="50px" src="images/in.svg" /></a></span>
-   <span class="header-facebook"><a href="http://facebook.krislion.com"><img height="50px" width="50px" src="images/f.svg" /></a></span>
+   <span class="header-linkedin"><a href="http://LINKEDIN.KrisLion.com"><img height="50px" width="50px" src="images/in.svg" /></a></span>
+   <span class="header-facebook"><a href="http://FACEBOOK.KrisLion.com"><img height="50px" width="50px" src="images/f.svg" /></a></span>
+   <span class="header-twitter"><a href="http://TWITTER.KrisLion.com"><img height="50px" width="50px" src="images/twitter.svg" /></a></span>
   </div>
   <div class="content-fun"><!--<span>Lorem</span><span>Ipsum</span><span>Dolor</span>--></div>
   <div class="content-main">
@@ -175,9 +181,20 @@ a:active {color:#44ff11;}
   <!--<div class="right-hand-filler">timetimetime&nbsp;</div>-->
  </div>
  <div class="content-main" style="text-align:left">
-  (2014-04-20) Coming soon! (eta 4-21, 23, 25 will have updates M-W-F)<br />1. chat on page -or- link to online IRC chat client [mibbit]<br />2. contact form<br />3. twitter button<br />4. steam button<br />5. deviantart button<br />6. all buttons<br />7. more images<br />8. add content to linked sites
+  (2014-04-21) Coming soon! (eta 4-23, 25, 28 --- will have updates M-W-F)<br />
+  1. chat on page -or- link to online IRC chat client [mibbit]<br />
+  2. contact form<br />
+  3. twitter button - DONE!<br />
+  4. steam button<br />5. deviantart button<br />6. all buttons<br />7. more images<br />8. add content to linked sites
  </div>
 
+<form action="/contact" method="post" style="display:none;">
+ <div><textarea name="content" rows="3" cols="60"></textarea></div>
+ <div><input type="submit" value="SEND CONTACT"></div>
+ <div style="display:none">
+  <input type="hidden" name="csrfmiddlewaretoken" value="''' + unicode(django.core.context_processors.csrf(request)['csrf_token']) + '''"/>
+ </div>
+</form>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -191,7 +208,12 @@ a:active {color:#44ff11;}
 </script>
 </body></html>
 '''
-
-def home(request):
     return http.HttpResponse(DEFAULT_PAGE) #('Hello Kris Lion!')
+
+
+def contact(request):
+    retval = '<html><body>You wrote:<pre>'
+    retval += unicode(request.POST['content']) #cgi.escape(unicode(request.get('content'))
+    retval += '</pre></body></html>'
+    return http.HttpResponse(retval)
 
