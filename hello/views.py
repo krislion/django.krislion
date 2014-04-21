@@ -177,6 +177,18 @@ a:active {color:#44ff11;}
  <div class="content-main" style="text-align:left">
   (2014-04-20) Coming soon! (eta 4-21, 23, 25 will have updates M-W-F)<br />1. chat on page -or- link to online IRC chat client [mibbit]<br />2. contact form<br />3. twitter button<br />4. steam button<br />5. deviantart button<br />6. all buttons<br />7. more images<br />8. add content to linked sites
  </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50214237-1', 'krislion.com');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
 </body></html>
 '''
 
