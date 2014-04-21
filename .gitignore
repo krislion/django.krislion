@@ -1,0 +1,23 @@
+*.pyc
+*.pyo
+
+# Default development database
+devdata.db
+
+# Default data directory
+data/*
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+
+# Installer logs
+pip-log.txt
+.installed.cfg
+
+# Unit test / coverage reports
+.coverage
+.tox
+*~
