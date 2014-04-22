@@ -189,11 +189,13 @@ a:active {color:#44ff11;}
   (2014-04-21) Coming soon! (eta 4-23, 25, 28 --- will have updates M-W-F)<br />
   1. chat on page -or- link to online IRC chat client [mibbit]<br />
   2. contact form<br />
+  3. favicon.ico - DONE! 2014-04-22<br />
   3. twitter button - DONE! 2014-04-21<br />
   4. steam button - DONE! 2014-04-21<br />
   5. deviantart button<br />
   6. all buttons<br />
-  7. more images<br />8. add content to linked sites<br />
+  7. more images<br />
+  8. add content to linked sites<br />
   9. consider eggplant
  </div>
 
