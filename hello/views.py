@@ -83,7 +83,7 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:1020px) {
  .content-fun {background-image:url("images/catch-drone-zoom-1024.jpg");height:425px;}
 }
-@media (max-width:620px) {
+@media (max-width:660px) {
  .logo-subtitle {display:none;}
  }
 @media (max-width:460px) {
@@ -124,7 +124,7 @@ a:active {color:#44ff11;}
  <div class="content-all">
   <div class="nav-main">
    <span class="logo-main"><a href="#">Kris Lion
-   <span class="logo-subtitle">"Happy Birthday Mara!"</span></a></span>
+   <span class="logo-subtitle">"Power to the People!"</span></a></span>
    <!--<span class="logo-subtitle">"Passion: refer to Kristopher Lion."</span>-->
    <!--<span class="logo-subtitle">Your odds of success are proportional to the number of people that want you to succeed</span>-->
    <!--<span class="cart"><a href="http://linkedin.krislion.com"><img src="images/cart.svg" height="50px" width="50px" /><!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 38.2" enable-background="new 0 0 51 38.2"><path stroke="#fff" stroke-miterlimit="10" d="M48.1 5.3h-7.2l-8 21.7c-.1.3-.3.6-.5.8-.4.5-1.1.8-1.8.8h-21.8c-1.3 0-2.4-1.1-2.4-2.4s1.1-2.4 2.4-2.4h20.2l1.1-2.9h-24.9c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h26.7l1-2.8h-30c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h31.8l2.3-6.4c.3-.9 1.2-1.5 2.2-1.6h9c1.3 0 2.4 1.1 2.4 2.4-.1 1.3-1.2 2.4-2.5 2.4zm-34.6 25.5c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4zm14.7 0c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4z"/></svg></a></span>-->
@@ -190,7 +190,10 @@ a:active {color:#44ff11;}
   1. chat on page -or- link to online IRC chat client [mibbit]<br />
   2. contact form<br />
   3. twitter button - DONE! 2014-04-21<br />
-  4. steam button - DONE! 2014-04-21<br />5. deviantart button<br />6. all buttons<br />7. more images<br />8. add content to linked sites<br />
+  4. steam button - DONE! 2014-04-21<br />
+  5. deviantart button<br />
+  6. all buttons<br />
+  7. more images<br />8. add content to linked sites<br />
   9. consider eggplant
  </div>
 
