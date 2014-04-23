@@ -3,36 +3,6 @@ from google.appengine.api import mail
 import cgi
 import django.core.context_processors
 
-SUBDOMAINS = [
-    '12thMan'
-    ,'BOOK'
-    ,'BrownAle'
-    ,'CANADA'
-    ,'CONCEPT'
-    ,'DAVERYACK'
-    ,'DEVIANT'
-    ,'DRONES'
-    ,'FACEBOOK'
-    ,'GITHUB'
-    ,'KRISLION'
-    ,'LINKEDIN'
-    ,'MARA'
-    ,'MULLINS'
-    ,'MUSIC'
-    ,'MYSPACE'
-    ,'NICK'
-    ,'PROFILE'
-    ,'PURCHASE'
-    ,'RANDY'
-    ,'STEAM'
-    ,'TAYLOR'
-    ,'TOM'
-    ,'TWITTER'
-    ,'YUSUKE'
-    ,'ZESTAWIT'
-] #SUBDOMAINS
-
-
 def home(request):
     DEFAULT_PAGE='''
 <html>
@@ -69,12 +39,12 @@ border-radius: 10px;
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 transition: background 0.5s ease-in-out;}
-.header-facebook, .header-twitter, .header-steam{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
+.header-facebook, .header-twitter, .header-github, .header-steam{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
 border-radius: 10px;
 -moz-border-radius: 10px;
 -webkit-border-radius: 10px;
 transition: background 0.5s ease-in-out;}
-.header-facebook:hover, .header-linkedin:hover, .header-twitter:hover, .header-steam:hover{fill:#bbff11;background-color:#22aff4;}
+.header-facebook:hover, .header-linkedin:hover, .header-twitter:hover, .header-github:hover, .header-steam:hover{fill:#bbff11;background-color:#22aff4;}
 .author-attribution {font-style:normal;font-size:75%;padding-left:10px;float:right;}
 .content-fun {background-image:url("images/catch-drone-zoom-1920-2.jpg");height:690px;background-repeat:no-repeat;background-position:left top;}
 @media (max-width:1660px) {
@@ -83,19 +53,22 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:1020px) {
  .content-fun {background-image:url("images/catch-drone-zoom-1024.jpg");height:425px;}
 }
-@media (max-width:660px) {
+@media (max-width:720px) {
  .logo-subtitle {display:none;}
- }
-@media (max-width:460px) {
- .header-steam {display:none;}
 }
-@media (max-width:400px) {
+@media (max-width:480px) {
+ .header-github {display:none;}
+ }
+@media (max-width:420px) {
  .header-twitter {display:none;}
 }
-@media (max-width:340px) {
+@media (max-width:360px) {
+ .header-steam {display:none;}
+}
+@media (max-width:300px) {
  .header-facebook {display:none;}
 }
-@media (max-width:280px) {
+@media (max-width:520px) {
  .logo-main {padding:10px 0 10px 5px;}
  .header-linkedin{margin-right:10px;}
 }
@@ -126,13 +99,12 @@ a:active {color:#44ff11;}
    <span class="logo-main"><a href="#">Kris Lion
    <span class="logo-subtitle">"Power to the People!"</span></a></span>
    <!--<span class="logo-subtitle">"Passion: refer to Kristopher Lion."</span>-->
-   <!--<span class="logo-subtitle">Your odds of success are proportional to the number of people that want you to succeed</span>-->
-   <!--<span class="cart"><a href="http://linkedin.krislion.com"><img src="images/cart.svg" height="50px" width="50px" /><!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 38.2" enable-background="new 0 0 51 38.2"><path stroke="#fff" stroke-miterlimit="10" d="M48.1 5.3h-7.2l-8 21.7c-.1.3-.3.6-.5.8-.4.5-1.1.8-1.8.8h-21.8c-1.3 0-2.4-1.1-2.4-2.4s1.1-2.4 2.4-2.4h20.2l1.1-2.9h-24.9c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h26.7l1-2.8h-30c-1.3 0-2.4-1.1-2.4-2.4 0-1.3 1.1-2.4 2.4-2.4h31.8l2.3-6.4c.3-.9 1.2-1.5 2.2-1.6h9c1.3 0 2.4 1.1 2.4 2.4-.1 1.3-1.2 2.4-2.5 2.4zm-34.6 25.5c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4zm14.7 0c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4-3.4-1.5-3.4-3.4 1.5-3.4 3.4-3.4z"/></svg></a></span>-->
+   <!--<span class="cart"><a href="http://linkedin.krislion.com"><img src="images/cart.svg" height="50px" width="50px" /></a></span>-->
    <!--<span class="logo-subtitle">"Ship it!"</span>-->
-   <!--<span class="author-attribution">-<a href="LINKEDIN.KrisLion.com">W. Brandi</a></span>-->
    <span class="header-linkedin"><a href="http://LINKEDIN.KrisLion.com"><img height="50px" width="50px" src="images/in.svg" /></a></span>
    <span class="header-facebook"><a href="http://FACEBOOK.KrisLion.com"><img height="50px" width="50px" src="images/f.svg" /></a></span>
    <span class="header-twitter"><a href="http://TWITTER.KrisLion.com"><img height="50px" width="50px" src="images/twitter.svg" /></a></span>
+   <span class="header-github"><a href="http://GITHUB.KrisLion.com"><img height="50px" width="50px" src="images/github.svg" /></a></span>
    <span class="header-steam"><a href="http://STEAM.KrisLion.com"><img height="50px" width="50px" src="images/steam.svg" /></a></span>
   </div>
   <div class="content-fun"><!--<span>Lorem</span><span>Ipsum</span><span>Dolor</span>--></div>
@@ -157,7 +129,7 @@ a:active {color:#44ff11;}
    <a href="http://MYSPACE.KrisLion.com">MySpace</a> | 
    <!--<a href="http://PROFILE.KrisLion.com">Profile</a> |--> 
    <a href="http://STEAM.KrisLion.com">Steam</a> | 
-   <a href="http://TWITTER.KrisLion.com">Twitter</a> | 
+   <a href="http://TWITTER.KrisLion.com">Twitter</a> 
   </div>
   <div class="content-main">
     may also contact via [my name]@gmail.com --- kris.lion
@@ -186,14 +158,14 @@ a:active {color:#44ff11;}
   <!--<div class="right-hand-filler">timetimetime&nbsp;</div>-->
  </div>
  <div class="content-main" style="text-align:left">
-  (2014-04-21) Coming soon! (eta 4-23, 25, 28 --- will have updates M-W-F)<br />
+  (2014-04-22) Coming soon! (eta 4-23, 25, 28 --- will have updates M-W-F)<br />
   1. chat on page -or- link to online IRC chat client [mibbit]<br />
   2. contact form<br />
   3. favicon.ico - DONE! 2014-04-22<br />
   3. twitter button - DONE! 2014-04-21<br />
   4. steam button - DONE! 2014-04-21<br />
-  5. deviantart button<br />
-  6. all buttons<br />
+  5. deviantart - <br />
+  6. all buttons - blogspot, googleplus, <br />
   7. more images<br />
   8. add content to linked sites<br />
   9. consider eggplant
