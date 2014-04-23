@@ -39,12 +39,12 @@ border-radius: 8px;
 -moz-border-radius: 8px;
 -webkit-border-radius: 8px;
 transition: background 0.5s ease-in-out;}
-.header-facebook, .header-twitter, .header-github, .header-deviantart, .header-steam{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
+.header-facebook, .header-twitter, .header-github, .header-deviantart, .header-googleplus, .header-steam{padding 0 0 0 0;margin-right:10px;vertical-align:middle;float:right;background-color:#007fc9;
 border-radius: 8px;
 -moz-border-radius: 8px;
 -webkit-border-radius: 8px;
 transition: background 0.5s ease-in-out;}
-.header-facebook:hover, .header-linkedin:hover, .header-twitter:hover, .header-github:hover, .header-deviantart:hover, .header-steam:hover{fill:#bbff11;background-color:#22aff4;}
+.header-facebook:hover, .header-linkedin:hover, .header-twitter:hover, .header-github:hover, .header-deviantart:hover, .header-googleplus:hover, .header-steam:hover{fill:#bbff11;background-color:#22aff4;}
 .author-attribution {font-style:normal;font-size:75%;padding-left:10px;float:right;}
 .content-fun {background-image:url("images/catch-drone-zoom-1920-2.jpg");height:690px;background-repeat:no-repeat;background-position:left top;}
 @media (max-width:1660px) {
@@ -53,15 +53,18 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:1020px) {
  .content-fun {background-image:url("images/catch-drone-zoom-1024.jpg");height:425px;}
 }
-@media (max-width:780px) {
+@media (max-width:840px) {
  .logo-subtitle {display:none;}
+}
+@media (max-width:600px) {
+ .header-googleplus {display:none;}
 }
 @media (max-width:540px) {
  .header-deviantart {display:none;}
 }
 @media (max-width:480px) {
  .header-github {display:none;}
- }
+}
 @media (max-width:420px) {
  .header-twitter {display:none;}
 }
@@ -71,7 +74,7 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:300px) {
  .header-facebook {display:none;}
 }
-@media (max-width:580px) {
+@media (max-width:640px) {
  .logo-main {padding:10px 0 10px 5px;}
  .header-linkedin{margin-right:10px;}
 }
@@ -109,9 +112,11 @@ a:active {color:#44ff11;}
    <span class="header-twitter"><a href="http://TWITTER.KrisLion.com"><img height="50px" width="50px" src="images/twitter.svg" /></a></span>
    <span class="header-github"><a href="http://GITHUB.KrisLion.com"><img height="50px" width="50px" src="images/github.svg" /></a></span>
    <span class="header-deviantart"><a href="http://DEVIANT.KrisLion.com"><img height="50px" width="50px" src="images/deviantart.svg" /></a></span>
+   <span class="header-googleplus"><a href="http://GOOGLEPLUS.KrisLion.com"><img height="50px" width="50px" src="images/gplus.svg" /></a></span>
    <span class="header-steam"><a href="http://STEAM.KrisLion.com"><img height="50px" width="50px" src="images/steam.svg" /></a></span>
   </div>
   <div class="content-fun"><!--<span>Lorem</span><span>Ipsum</span><span>Dolor</span>--></div>
+  <!--<div class="second-picture"><!-- no content ></div>-->
   <div class="content-main">
    <a href="http://12THMAN.KrisLion.com">12thMan</a> |
    <a href="http://BOOK.KrisLion.com">Book</a> |
@@ -123,15 +128,15 @@ a:active {color:#44ff11;}
    <a href="http://PONIES.KrisLion.com">Ponies[@1:14-1:22]</a> |
    <a href="http://ZESTAWIT.KrisLion.com">Zestawit</a>
   <div class="content-main">
-   <a href="http://kris-lion.blogspot.com/">Blogspot</a> |
+   <!--<a href="http://kris-lion.blogspot.com/">Blogspot</a> | -->
    <a href="http://DEVIANT.KrisLion.com">DeviantArt</a> | 
    <a href="http://FACEBOOK.KrisLion.com">Facebook</a> | 
    <a href="http://GITHUB.KrisLion.com">Github</a> | 
    <a href="http://GOOGLEPLUS.KrisLion.com">GooglePlus</a> | 
    <!--<a href="http://KRISLION.KrisLion.com">Kris Lion</a> | --> 
    <a href="http://LINKEDIN.KrisLion.com">LinkedIn</a> | 
-   <a href="http://MYSPACE.KrisLion.com">MySpace</a> | 
-   <!--<a href="http://PROFILE.KrisLion.com">Profile</a> |--> 
+   <!--<a href="http://MYSPACE.KrisLion.com">MySpace</a> | -->
+   <!--<a href="http://PROFILE.KrisLion.com">Profile</a> | --> 
    <a href="http://STEAM.KrisLion.com">Steam</a> | 
    <a href="http://TWITTER.KrisLion.com">Twitter</a> 
   </div>
@@ -168,10 +173,11 @@ a:active {color:#44ff11;}
   3. favicon.ico - DONE! 2014-04-22<br />
   3. twitter button - DONE! 2014-04-21<br />
   4. steam button - DONE! 2014-04-21<br />
-  5. deviantart - DONE! 2014-04-23<br />
-  6. more images<br />
-  7. add content to linked sites<br />
-  8. consider eggplant
+  5. deviantart button - DONE! 2014-04-23<br />
+  6. googleplus button - DONE! 2014-04-23<br />
+  7. more images<br />
+  8. linked sites updates<br />
+  9. consider eggplant
  </div>
 
 <form action="/contact" method="post" style="display:none;">
