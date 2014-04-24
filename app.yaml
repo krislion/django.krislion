@@ -16,18 +16,7 @@ skip_files: |
  (.*/Thumbs\.db)
  )$
 
-
-
-
 handlers:
-- url: /_ah/channel/connected/
-  servlet: com.[MYAPP].server.channel.ChannelConnected
-  name: ChannelConnected
-
-- url: /_ah/channel/disconnected/
-  servlet: com.[MYAPP].server.channel.ChannelDisconnected
-  name: ChannelDisconnected
-
 - url: /jquery.js
   static_files: jquery.js
   upload: jquery.js
