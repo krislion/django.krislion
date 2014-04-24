@@ -168,17 +168,18 @@ a:active {color:#44ff11;}
   <!--<div class="right-hand-filler">timetimetime&nbsp;</div>-->
  </div>
  <div class="content-main" style="text-align:left">
-  (2014-04-23) Coming soon! (eta 4-25, 28, 30 --- will have updates M-W-F)<br />
-  1. chat on page -or- link to online IRC chat client [mibbit]<br />
-  2. contact form<br />
+  (2014-04-24) Coming soon! (eta 4-25, 28, 30 --- will have updates M-W-F)<br />
+  1. chat on page - IMPLEMENTED! 2014-04-24 see www.krislion.com/chat<br />
+  2. contact form - (implemented-though-not-exposed)<br />
   3. favicon.ico - DONE! 2014-04-22<br />
   3. twitter button - DONE! 2014-04-21<br />
   4. steam button - DONE! 2014-04-21<br />
   5. deviantart button - DONE! 2014-04-23<br />
   6. googleplus button - DONE! 2014-04-23<br />
   7. more images<br />
-  8. linked sites updates<br />
-  9. consider eggplant
+  8. make chat site into widget<br />
+  9. linked sites updates<br />
+  10.consider eggplant
  </div>
 
 <form action="/contact" method="post" style="display:none;">
