@@ -2,6 +2,7 @@ from django import http
 from google.appengine.api import mail
 import cgi
 import django.core.context_processors
+from django.core.context_processors import csrf
 
 def home(request):
     DEFAULT_PAGE='''
@@ -56,22 +57,22 @@ transition: background 0.5s ease-in-out;}
 @media (max-width:840px) {
  .logo-subtitle {display:none;}
 }
-@media (max-width:600px) {
+@media (max-width:610px) {
  .header-googleplus {display:none;}
 }
-@media (max-width:540px) {
+@media (max-width:550px) {
  .header-deviantart {display:none;}
 }
-@media (max-width:480px) {
+@media (max-width:490px) {
  .header-github {display:none;}
 }
-@media (max-width:420px) {
+@media (max-width:430px) {
  .header-twitter {display:none;}
 }
-@media (max-width:360px) {
+@media (max-width:370px) {
  .header-steam {display:none;}
 }
-@media (max-width:300px) {
+@media (max-width:310px) {
  .header-facebook {display:none;}
 }
 @media (max-width:640px) {
@@ -211,4 +212,135 @@ def contact(request):
     message.body = unicode(request.POST['content'])
     message.send()
     return http.HttpResponse(retval)
+
+
+from random import choice
+from django.utils import simplejson
+from google.appengine.api import channel, memcache, users
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext import webapp
+from django.views.generic import View
+from django.shortcuts import redirect, render, render_to_response
+ANONYMOUS_IDS = set(range(1, 1000)) # you can increase it for accepting more anonymous users
+
+def broadcast(message, tokens=None):
+    if not tokens:
+        tokens = memcache.get('tokens')
+    if tokens:
+        tokens.pop('_used_ids', None) # make sure you won't use the tokens after broadcast(), otherwise you need do a copy
+        ids = set(tokens.values()) # remove duplicate ids
+        # be noticed that a logged in user may connect to 1 channel by using several browsers at the same time
+        # it works strange both in the cloud and local server:
+        #   1. if removed the duplicate ids, only the last connected browser can receive the message
+        #   2. if not removed them, all the browsers will receive duplicate messages
+        # I don't know if it's a bug of the SDK 1.4.0
+        for id in ids: # it may take a while if there are many users in the room, I think you can use task queue to handle this problem
+            if isinstance(id, int):
+                id = 'anonymous(%s)' % id
+            channel.send_message(id, message)
+
+class ChatHandler(View):
+    def get(self, request, *args, **kwargs):
+        return render_to_response("chat.html", {'csrfmiddlewaretoken_token':unicode(csrf(request)['csrf_token'])})
+
+class GetTokenHandler(View):
+    def get(self, request, *args, **kwargs):
+        tokens = memcache.get('tokens') or {}
+        user = users.get_current_user()
+        if user:
+            channel_id = id = user.email() # you can use hash algorithm for ensuring the channel id is less then 64 bytes
+        else:
+            used_ids = tokens.get('_used_ids') or set()
+            available_ids = ANONYMOUS_IDS - used_ids
+            if available_ids:
+                available_ids = list(available_ids)
+            else:
+                return http.HttpResponse('')#elf.response.out.write('')
+            id = choice(available_ids)
+            used_ids.add(id)
+            tokens['_used_ids'] = used_ids
+            channel_id = 'anonymous(%s)' % id
+        token = channel.create_channel(channel_id)
+        tokens[token] = id
+        memcache.set('tokens', tokens) # you can use datastore instead of memcache
+        return http.HttpResponse(token)
+
+class ReleaseTokenHandler(View):
+    def post(self, request, *args, **kwargs):
+        token = request.POST.get('token')
+        if not token:
+            return
+        tokens = memcache.get('tokens')
+        if tokens:
+            id = tokens.get(token, '')
+            if id:
+                if isinstance(id, int):
+                    used_ids = tokens.get('_used_ids')
+                    if used_ids:
+                        used_ids.discard(id)
+                        tokens['_used_ids'] = used_ids
+                    user_name = 'anonymous(%s)' % id
+                else:
+                    user_name = id.split('@')[0]
+                del tokens[token]
+                memcache.set('tokens', tokens)
+                message = user_name + ' has left the chat room.'
+                message = simplejson.dumps(message)
+                broadcast(message, tokens)
+        return django.http.HttpResponse("")
+
+
+class OpenHandler(View):
+    def post(self, request, *args, **kwargs):
+        token = request.POST.get('token')
+        if not token:
+            return
+        tokens = memcache.get('tokens')
+        if tokens:
+            id = tokens.get(token, '')
+            if id:
+                if isinstance(id, int):
+                    user_name = 'anonymous(%s)' % id
+                else:
+                    user_name = id.split('@')[0]
+                message = user_name + u' has joined the chat room.'
+                message = simplejson.dumps(message)
+                broadcast(message, tokens)
+        return django.http.HttpResponse("")
+
+
+
+class ReceiveHandler(View):
+    def post(self, request, *args, **kwargs):
+        token = request.POST.get('token')
+        if not token:
+            return
+        message = request.POST.get('content')
+        if not message:
+            return
+        tokens = memcache.get('tokens')
+        if tokens:
+            id = tokens.get(token, '')
+            if id:
+                if isinstance(id, int):
+                    user_name = 'anonymous(%s)' % id
+                else:
+                    user_name = id.split('@')[0]
+                message = '%s: %s' % (user_name, message)
+                message = simplejson.dumps(message)
+                if len(message) > channel.MAXIMUM_MESSAGE_LENGTH:
+                    return
+                broadcast(message)
+        return django.http.HttpResponse("")
+
+
+class LoginOrOut(View):
+    def get(self, request, *args, **kwargs):
+        if users.get_current_user():
+            return redirect(users.create_logout_url('/chat'))
+        else:
+            return redirect(users.create_login_url('/chat'))
+
+
+
 
