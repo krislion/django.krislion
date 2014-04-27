@@ -1,0 +1,24 @@
+<html>
+ <head>
+  <title>{% block title%}Kris Lion{% endblock%}</title>
+  <meta name="description" content="{% block metadescription%}{% endblock %}"> 
+  <meta name="keywords" content="{% block metakeywords%}{% endblock %}"> 
+  <style type="text/css">
+   {% include "base.css" %}
+   {% include "navigation.css" %}
+   {% include "context-aware.css" %}
+  </style>
+ </head>
+ <body>
+  <div class="content-all">
+   {% include "navigation.html" %}
+   {% include "content.html" %}
+   {% include "footer.html" %}
+   <!--<div class="right-hand-filler">timetimetime&nbsp;</div>-->
+  </div>
+  {% include "todo.html" %}
+  {% include "contact-form.html" %}
+  {% include "ga.html" %}
+ </body>
+</html>
+
