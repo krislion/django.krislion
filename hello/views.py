@@ -169,8 +169,9 @@ a:active {color:#44ff11;}
  </div>
  <div class="content-main" style="text-align:left">
   (2014-04-24) Coming soon! (eta 4-25, 28, 30 --- will have updates M-W-F)<br />
-  1. chat on page - IMPLEMENTED! 2014-04-24 see www.krislion.com/chat<br />
-  2. contact form - (implemented-though-not-exposed)<br />
+  sometimes i wonder if this is my real life<br />
+  1. chat on page - DONE! 2014-04-24 see www.krislion.com/chat<br />
+  2. contact form - DONE! 2014-04-24 (hidden for the awesome)<br />
   3. favicon.ico - DONE! 2014-04-22<br />
   3. twitter button - DONE! 2014-04-21<br />
   4. steam button - DONE! 2014-04-21<br />
