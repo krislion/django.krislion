@@ -1,0 +1,101 @@
+//base styles
+   body{
+    background-color:#ffffff;
+    color:#ffffff;font-family:Arial, Verdana, sans-serif;
+    margin:0px 0px 0px 0px;
+    font-size:1.1em;
+   }
+   .right-side-effect{
+    background-image:-moz-linear-gradient(center right,#feffff,#4577cb);
+    background-image:-ms-linear-gradient(right,#4577cb,#3264b6);
+    background-image:-webkit-gradient(linear,0 0,100% 0,from(#4577cb),to(#feffff));
+    background-image:-webkit-linear-gradient(right,#feffff,#4577cb);
+    background-image:-o-linear-gradient(right,#feffff,#4577cb);
+    background-image:linear-gradient(right,#feffff,#4577cb);
+    background-repeat:y;
+   }
+   .div2-deprecated{
+    background-color:#ccefe9;
+    border-radius:50px;
+    margin:20px 50px;
+    padding:20px;
+   }
+   .content-all{
+    background-color:#ffffff;
+    min-width:235px;
+    max-width:1920px;
+    display:block;
+   }
+   .content-main{
+    background-color:#009fe9;
+    padding:10px 0px 10px 0px;
+    text-align:center;
+   }
+   .right-hand-filler{
+    background-color:#ffffff;
+    width:30px;
+    display:block;
+   }
+   .logo-main{
+    margin:0px 0px 0px 20px;
+    padding:10px 0px 10px 20px;
+    font-size:200%
+   }
+   .logo-main a{
+    text-decoration:none;
+   }
+   .logo-main a:visited{
+    color:#ffffff;
+   }
+   .logo-main a:visited:hover{
+    color:#bbff11;
+   }
+   .logo-subtitle{
+    padding:10px 0px 20px 10px;
+    font-size:50%;
+    vertical-align:middle;
+    margin-top:15px;
+   }
+   .author-attribution{
+    font-style:normal;
+    font-size:75%;
+    padding-left:10px;
+    float:right;
+   }
+   .footer{
+    text-align:center;
+    padding:20px 0px 30px 15px;
+    margin-bottom:0px;
+    background-image:-moz-linear-gradient(center top,#009fe9,#3284d6);
+    background-image:-ms-linear-gradient(top,#009fe9,#3264b6);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#009fe9),to(#3264b6));
+    background-image:-webkit-linear-gradient(top,#009fe9,#3264b6);
+    background-image:-o-linear-gradient(top,#009fe9,#3264b6);
+    background-image:linear-gradient(top,#009fe9,#3264b6);
+    background-repeat:x;
+   }
+   .follow-me{
+    padding-left:25px;
+   }
+   .copyright{
+    vertical-align:middle;
+    font-size:1em;
+   }
+   .li-btn{
+    vertical-align:middle;
+   }
+   a:visited{
+    color:#ddff66;
+    transition:color 0.18s ease;
+   }
+   a:link{
+    color:#ffffff;
+    transition:color 0.18s ease;
+   }
+   a:hover{
+    color:#bbff11;
+   }
+   a:active{
+    color:#44ff11;
+   }
+   

@@ -1,0 +1,69 @@
+//navigation styles
+   .nav-main{
+    background-color:#3d6fc3;padding:15px 0px 15px 0px;
+    background-image:-moz-linear-gradient(center top,#4577cb,#3264b6);
+    background-image:-ms-linear-gradient(top,#4577cb,#3264b6);
+    background-image:-webkit-gradient(linear,0 0,0 100%,from(#4577cb),to(#3264b6));
+    background-image:-webkit-linear-gradient(top,#4577cb,#3264b6);
+    background-image:-o-linear-gradient(top,#4577cb,#3264b6);
+    background-image:linear-gradient(top,#4577cb,#3264b6);
+    background-repeat:x;
+   }
+   .logo-main{
+    margin:0px 0px 0px 20px;
+    padding:10px 0px 10px 20px;
+    font-size:200%
+   }
+   .logo-main a{
+    text-decoration:none;
+   }
+   .logo-main a:visited{
+    color:#ffffff;
+   }
+   .logo-main a:visited:hover{
+    color:#bbff11;
+   }
+   .logo-subtitle{
+    padding:10px 0px 20px 10px;
+    font-size:50%;
+    vertical-align:middle;
+    margin-top:15px;
+   }
+   .cart{
+    padding: 0 20px 0 0;
+    vertical-align:middle;
+    float:right;
+   }
+   .header-linkedin{
+    padding 0 0 0 0;
+    margin-right:30px;
+    vertical-align:middle;
+    float:right;
+    background-color:#007fd2;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    transition: background 0.5s ease-in-out;
+   }
+   .header-facebook, .header-twitter, .header-github, .header-deviantart, .header-googleplus, .header-steam{
+    padding 0 0 0 0;
+    margin-right:10px;
+    vertical-align:middle;
+    float:right;
+    background-color:#007fc9;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    transition: background 0.5s ease-in-out;
+   }
+   .header-facebook:hover, .header-linkedin:hover, .header-twitter:hover, .header-github:hover, .header-deviantart:hover, .header-googleplus:hover, .header-steam:hover{
+    fill:#bbff11;
+    background-color:#22aff4;
+   }
+   .author-attribution{
+    font-style:normal;
+    font-size:75%;
+    padding-left:10px;
+    float:right;
+   }
+
