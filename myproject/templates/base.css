@@ -1,4 +1,4 @@
-//base styles
+/* base styles */
    body{
     background-color:#ffffff;
     color:#ffffff;font-family:Arial, Verdana, sans-serif;
@@ -30,6 +30,12 @@
     background-color:#009fe9;
     padding:10px 0px 10px 0px;
     text-align:center;
+   }
+   .content-fun{
+    background-image: url("images/catch-drone-zoom-1920-2.jpg");
+    height: 690px;
+    background-repeat: no-repeat;
+    background-position: left top;
    }
    .right-hand-filler{
     background-color:#ffffff;

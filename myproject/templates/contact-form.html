@@ -3,7 +3,7 @@
    <div><textarea name="content" rows="3" cols="60"></textarea></div>
    <div><input type="submit" value="SEND CONTACT"></div>
    <div style="display:none">
-    <input type="hidden" name="csrfmiddlewaretoken" value="{% unicode(django.core.context_processors.csrf(request)['csrf_token']) %}"/>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrfmiddlewaretoken_token }}"/>
    </div>
   </form>
   
