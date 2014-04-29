@@ -6,7 +6,7 @@
  <style type="text/css">
   #input { position: absolute; width: 45%; left: 50%; }
   #content { width: 95%; }
-  #msg { position: absolute; top: 0; width: 45%; height: 100%; word-wrap: break-word; word-break: break-all; }
+  #message { position: absolute; top: 0; width: 45%; height: 100%; word-wrap: break-word; word-break: break-all; overflow:scroll; }
   .top1em { margin-top: 1em; }
   .top2em { margin-top: 2em; }
  </style>
@@ -17,7 +17,7 @@
   $(document).ready(
    function() {
     var $content = $('#content');
-    var $msg = $('#msg');
+    var $message = $('#message');
     var token;
 
     function get_token() {
@@ -26,7 +26,7 @@
        token = data;
        openChannel();
       } else {
-       $msg.prepend('<p>Sorry, this chat room has reached the capacity of anonymous users, you need <a href="/login">login</a> to join them.</p>');
+       $message.append('<p>Sorry, this chat room has reached the capacity of anonymous users, you need <a href="/login">login</a> to join them.</p>');
       }
      });
     }
@@ -39,7 +39,9 @@
     function onMessage(m) {
      var message = $.parseJSON(m.data);
      message = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-     $msg.prepend('<blockquote><pre>' + message + '</pre></blockquote>');
+     var d = new Date();
+     var timing = ('0'+d.getHours()).slice(-2) + ":" + ('0'+d.getMinutes()).slice(-2) + ':' + ('0'+d.getSeconds()).slice(-2);
+     $message.append('<blockquote><pre><span>' + timing + "</span>-&gt;" + message + '</pre></blockquote>');
     }
 
     function openChannel() {
@@ -48,7 +50,7 @@
        'onopen': onOpen,
        'onmessage': onMessage,
        'onerror': function() {},
-       'onclose': function() {$msg.prepend('<p>Your session has expired, you can refresh this page to join the chat room again.</p>');} // you can reopen the channel here if token has expired
+       'onclose': function() {$message.append('<p>Your session has expired, you can refresh this page to join the chat room again.</p>');} // you can reopen the channel here if token has expired
      };
      channel.open(handler);
     }
@@ -70,7 +72,7 @@
       return false;
      }
     });
-    $('#submit_msg').click(submit);
+    $('#submit_message').click(submit);
 
     $(window).bind('beforeunload', function() {
      if (token)
@@ -83,10 +85,10 @@
 <body>
  <div id="input">
   <div><textarea id="content" rows="3" cols="60"></textarea></div>
-  <div class="top1em"><input type="button" value="submit" id="submit_msg"/> <a href="/login">Login-or-Logout</a></div>
+  <div class="top1em"><input type="button" value="Send" id="submit_message"/> <a href="/login">{{ login_logout_prompt }}</a></div>
   <div class="top2em"><blockquote><p>You can press <strong>Shift+Enter</strong> to submit a message.</p></blockquote></div>
  </div>
- <div id="msg"></div>
+ <div id="message"></div>
  {% include "ga.html" %}
 </body>
 </html>

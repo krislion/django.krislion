@@ -15,6 +15,13 @@ from django.shortcuts import redirect, render, render_to_response
 def _get_csrf_token_dict(request):
     return {'csrfmiddlewaretoken_token':unicode(csrf(request)['csrf_token'])} 
 
+def _get_csrf_token(request):
+    return unicode(csrf(request)['csrf_token'])
+
+def _get_login_prompt():
+    if users.get_current_user():
+        return "Logout"
+    return "Authenticate via Google+"
 
 def home(request):
     return render_to_response('base.html', _get_csrf_token_dict(request))
@@ -40,14 +47,14 @@ def broadcast(message, tokens=None):
         # google-authenticated/logged in user may connect to the same channel using several browsers at a time
         # if we remove duplicates (by using set above), then the last connected browser will receive messages
         # if we leave duplicates, all browsers receive duplicate messages
-        for id in ids: # it may take a while if there are many users in the room, I think you can use task queue to handle this problem
+        for id in ids: #may take a while if there are many users in the room
             if isinstance(id, int):
                 id = 'krislion-fan(%s)' % id
             channel.send_message(id, message)
 
 class ChatHandler(View):
     def get(self, request, *args, **kwargs):
-        return render_to_response("chat.html", _get_csrf_token_dict(request))
+        return render_to_response("chat.html", dict(csrfmiddlewaretoken_token = _get_csrf_token(request), login_logout_prompt= _get_login_prompt() ))
 
 class GetTokenHandler(View):
     def get(self, request, *args, **kwargs):
@@ -68,7 +75,7 @@ class GetTokenHandler(View):
             channel_id = 'krislion-fan(%s)' % id
         token = channel.create_channel(channel_id)
         tokens[token] = id
-        memcache.set('tokens', tokens) # you can use datastore instead of memcache
+        memcache.set('tokens', tokens) # consider datastore instead of memcache
         return http.HttpResponse(token)
 
 class ReleaseTokenHandler(View):
