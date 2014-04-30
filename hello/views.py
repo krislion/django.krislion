@@ -73,7 +73,7 @@ class GetTokenHandler(View):
             used_ids.add(id)
             tokens['_used_ids'] = used_ids
             channel_id = 'krislion-fan(%s)' % id
-        token = channel.create_channel(channel_id)
+        token = channel.create_channel(channel_id, duration_minutes=1440)
         tokens[token] = id
         memcache.set('tokens', tokens) # consider datastore instead of memcache
         return http.HttpResponse(token)
@@ -124,9 +124,11 @@ class ReceiveHandler(View):
     def post(self, request, *args, **kwargs):
         token = request.POST.get('token')
         if not token:
+            print "no token"
             return
         message = request.POST.get('content')
         if not message:
+            print "no message"
             return
         tokens = memcache.get('tokens')
         if tokens:
