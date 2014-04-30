@@ -6,19 +6,18 @@
  <style type="text/css">
   #input { position: absolute; width: 45%; left: 50%; }
   #content { width: 95%; }
-  #message { position: absolute; top: 0; width: 45%; height: 100%; word-wrap: break-word; word-break: break-all; overflow:scroll; }
+  #message { position: absolute; top: 0; width: 45%; height: 100%; word-wrap:break-word; word-break:break-all; overflow-y:scroll; word-wrap:break-word;}
   .top1em { margin-top: 1em; }
-  .top2em { margin-top: 2em; }
+  .top2em { margin-top: 0.5em; }
+  .message_time { font-family:Consolas,Lucida Console,monospace; color:#11bb22; font-size:70%; }
  </style>
  <script src="/_ah/channel/jsapi"></script>
  <script>goog.appengine.Socket.POLLING_TIMEOUT_MS = 1200;</script>
  <script src="/jquery.js"></script>
  <script>
-  $(document).ready(
-   function() {
-    var $content = $('#content');
-    var $message = $('#message');
-    var token;
+  var $content;// = $('#content');
+  var $message;// = $('#message');
+  var token;
 
     function get_token() {
      $.get('/get_token', function(data){
@@ -30,7 +29,6 @@
       }
      });
     }
-    get_token();
 
     function onOpen() {
      $.post('/open', {'token': token, 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'});
@@ -38,10 +36,11 @@
 
     function onMessage(m) {
      var message = $.parseJSON(m.data);
-     message = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+     message = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br />');
      var d = new Date();
      var timing = ('0'+d.getHours()).slice(-2) + ":" + ('0'+d.getMinutes()).slice(-2) + ':' + ('0'+d.getSeconds()).slice(-2);
-     $message.append('<blockquote><pre><span>' + timing + "</span>-&gt;" + message + '</pre></blockquote>');
+     $message.append('<blockquote><span class="message_time">(' + timing + ")</span> " + message + '</blockquote>');
+     $("#message").animate({scrollTop:$("#message")[0].scrollHeight}, 1000);
     }
 
     function openChannel() {
@@ -55,16 +54,40 @@
      channel.open(handler);
     }
 
-    function submit() {
-     if (token) {
-      $.ajax({
-       url: '/post_msg',
-       type: 'POST',
-       data: {'token': token, 'content': $content.val(), 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'}
-      });
-      $content.val('').focus();
-     }
+    function release_token() {
+     $.post('/del_token', {'token': token, 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'});
     }
+
+  $(document).ready( readyFn );
+
+  function reconnect() {
+   release_token();
+   setTimeout("get_token();r2();", 3000);
+  }
+  function r2() {
+   $content.val('Let me know if you have any questions! I am connected to the chat and will be able to see your messages :D');
+   setTimeout("$('#submit_message').click();", 3000); //$('#submit_message').click();
+  }
+  //setInterval ( "reconnect()", 1000*60*1000 ); //reconnect every 1000 minutes
+
+   function submit() {
+    if (token) {
+     $.ajax({
+      url: '/post_msg',
+      type: 'POST',
+      data: {'token': token, 'content': $content.val(), 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'}
+     });
+     $content.val('').focus();
+    }
+   }
+
+  function readyFn(jQuery) {
+    //var $content = $('#content');
+    //var $message = $('#message');
+    //var token;
+    $content = $('#content');
+    $message = $('#message');
+    get_token();
 
     $content.keypress(function(e) {
      if (e.shiftKey && e.keyCode == 13) {
@@ -76,10 +99,9 @@
 
     $(window).bind('beforeunload', function() {
      if (token)
-      $.post('/del_token', {'token': token, 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'});
+      release_token();
     })
    }
-  );
  </script>
 </head>
 <body>
