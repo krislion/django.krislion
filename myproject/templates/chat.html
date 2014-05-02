@@ -11,104 +11,16 @@
   .top2em { margin-top: 0.5em; }
   .message_time { font-family:Consolas,Lucida Console,monospace; color:#11bb22; font-size:70%; }
  </style>
- <script src="/_ah/channel/jsapi"></script>
- <script>goog.appengine.Socket.POLLING_TIMEOUT_MS = 1200;</script>
- <script src="/jquery.js"></script>
+ {% include "chat-js.html" %}
  <script>
-  var $content;// = $('#content');
-  var $message;// = $('#message');
-  var token;
-
-    function get_token() {
-     $.get('/get_token', function(data){
-      if (data) {
-       token = data;
-       openChannel();
-      } else {
-       $message.append('<p>Sorry, this chat room has reached the capacity of anonymous users, you need <a href="/login">login</a> to join them.</p>');
-      }
-     });
-    }
-
-    function onOpen() {
-     $.post('/open', {'token': token, 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'});
-    }
-
-    function onMessage(m) {
-     var message = $.parseJSON(m.data);
-     message = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br />');
-     var d = new Date();
-     var timing = ('0'+d.getHours()).slice(-2) + ":" + ('0'+d.getMinutes()).slice(-2) + ':' + ('0'+d.getSeconds()).slice(-2);
-     $message.append('<blockquote><span class="message_time">(' + timing + ")</span> " + message + '</blockquote>');
-     $("#message").animate({scrollTop:$("#message")[0].scrollHeight}, 1000);
-    }
-
-    function openChannel() {
-     var channel = new goog.appengine.Channel(token);
-     var handler = {
-       'onopen': onOpen,
-       'onmessage': onMessage,
-       'onerror': function() {},
-       'onclose': function() {$message.append('<p>Your session has expired, you can refresh this page to join the chat room again.</p>');} // you can reopen the channel here if token has expired
-     };
-     channel.open(handler);
-    }
-
-    function release_token() {
-     $.post('/del_token', {'token': token, 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'});
-    }
-
-  $(document).ready( readyFn );
-
-  function reconnect() {
-   release_token();
-   setTimeout("get_token();r2();", 3000);
-  }
-  function r2() {
-   $content.val('Let me know if you have any questions! I am connected to the chat and will be able to see your messages :D');
-   setTimeout("$('#submit_message').click();", 3000); //$('#submit_message').click();
-  }
-  //setInterval ( "reconnect()", 1000*60*1000 ); //reconnect every 1000 minutes
-
-   function submit() {
-    if (token) {
-     $.ajax({
-      url: '/post_msg',
-      type: 'POST',
-      data: {'token': token, 'content': $content.val(), 'csrfmiddlewaretoken':'{{ csrfmiddlewaretoken_token }}'}
-     });
-     $content.val('').focus();
-    }
-   }
-
-  function readyFn(jQuery) {
-    //var $content = $('#content');
-    //var $message = $('#message');
-    //var token;
-    $content = $('#content');
-    $message = $('#message');
-    get_token();
-
-    $content.keypress(function(e) {
-     if (e.shiftKey && e.keyCode == 13) {
-      submit();
-      return false;
-     }
-    });
-    $('#submit_message').click(submit);
-
-    $(window).bind('beforeunload', function() {
-     if (token)
-      release_token();
-    })
-   }
+   $(document).ready( startChat );
  </script>
 </head>
 <body>
  <div id="input">
   <div><textarea id="content" rows="3" cols="60"></textarea></div>
   <div class="top1em"><input type="button" value="Send" id="submit_message"/> <a href="/login">{{ login_logout_prompt }}</a></div>
-  <div class="top2em"><blockquote><p>You can press <strong>Shift+Enter</strong> to submit a message.</p></blockquote></div>
+  <div class="top2em"><blockquote><p>You can press <strong>Enter</strong> to submit a message or Shift+Enter to enter a newline in your message.</p></blockquote></div>
  </div>
  <div id="message"></div>
  {% include "ga.html" %}
