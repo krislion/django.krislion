@@ -9,6 +9,9 @@
      background-image:url("images/catch-drone-zoom-1024.jpg");
      height:425px;
     }
+    .chatprompt{
+     top:272;
+    }
    }
    @media (max-width:840px){
     .logo-subtitle{
@@ -57,5 +60,30 @@
     .content-fun{
      height:425px;
     }
+   }
+   @media (max-height:425px){
+    .chatprompt{
+     top:300px;
+    }
+   }
+   @media (max-height:300px){
+    .chatprompt{
+     top:150px;
+    }
+   }
+   @media (max-height:180px){
+    .chatprompt{
+     top:72px;
+    }
+   }
+   @media (max-height:75px){
+    .chatprompt{
+     top:0px;
+    }
+   }
+   @media (min-height:750px){
+    .chatprompt{
+     top:672px;
+    } 
    }
      
