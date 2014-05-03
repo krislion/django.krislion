@@ -1,0 +1,14 @@
+/* chat styles */
+   .chatprompt{
+    display:none;
+    position:fixed;
+    top:72px;
+    right:0px;
+    width:100px;
+    height:200px;
+    background-color:#000000;
+    color:#ffffff;font-family:Arial, Verdana, sans-serif;
+    margin:0px 0px 0px 0px;
+    font-size:1.1em;
+   }
+   
